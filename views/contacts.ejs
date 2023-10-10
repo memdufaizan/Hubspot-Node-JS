@@ -1,0 +1,21 @@
+<%- include ('./components/header', {title : title}); %>
+    <div class="container mt-2">
+        <h2>Contacts from HubSpot</h2>
+            <div class="row">
+                <% data.forEach(function(contact) { %>
+                    <div class="col-sm-3 mt-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= contact.properties.firstname %> <%= contact.properties.lastname %></h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="badge text-bg-light">Contact ID - <%= contact.id %></span></h6>
+                                <p class="card-text"><%= contact.properties.email %></p>
+                                <a href="/edit/<%= contact.id %>" class="card-link btn btn-sm btn-secondary">Edit</a>
+                                <a href="/delete/<%= contact.id %>" class="card-link btn btn-sm btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+                </div>
+            </div>
+    </div>
+<%- include ('./components/footer'); %>

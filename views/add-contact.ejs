@@ -1,0 +1,70 @@
+<%- include ('./components/header', {title : title}); %>
+<div class="container mt-2">
+    <h2>Add new contact</h2>
+    <% if(resdata.status){ %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong> <%= resdata.message %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+    <% if(!resdata.status && resdata !== ''){ %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Danger!</strong> <%= resdata.message %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+    <form method="POST" action="/add-contact" name="add-contact-form" class="row g-3 needs-validation">
+        <div class="col-md-4 mb-3">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-control" name="firstname" placeholder="John">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control" name="lastname" placeholder="Doe">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" placeholder="name@example.com">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Phone</label>
+            <input type="text" class="form-control" name="phone" placeholder="123456789">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Company</label>
+            <input type="text" class="form-control" name="company" placeholder="HubSpot Inc.">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Website</label>
+            <input type="text" class="form-control" name="website" placeholder="hubspot.com">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-control" name="address" placeholder="Address">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">City</label>
+            <input type="text" class="form-control" name="city" placeholder="City">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">State</label>
+            <input type="text" class="form-control" name="state" placeholder="State">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Country</label>
+            <input type="text" class="form-control" name="country" placeholder="Country">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Zip</label>
+            <input type="text" class="form-control" name="zip" placeholder="Zip">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Job Title</label>
+            <input type="text" class="form-control" name="jobtitle" placeholder="Job Title">
+        </div>
+        <div class="col-md-12 mb-3">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+<%- include ('./components/footer'); %>
