@@ -1,21 +1,69 @@
 <%- include ('./components/header', {title : title}); %>
     <div class="container mt-2">
         <h2>Contacts from HubSpot</h2>
-            <div class="row">
-                <% data.forEach(function(contact) { %>
-                    <div class="col-sm-3 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title"><%= contact.properties.firstname %> <%= contact.properties.lastname %></h5>
-                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="badge text-bg-light">Contact ID - <%= contact.id %></span></h6>
-                                <p class="card-text"><%= contact.properties.email %></p>
-                                <a href="/edit/<%= contact.id %>" class="card-link btn btn-sm btn-secondary">Edit</a>
-                                <a href="/delete/<%= contact.id %>" class="card-link btn btn-sm btn-danger">Delete</a>
-                            </div>
+        <div class="row">
+            <% data.forEach(function(contact) { %>
+                <div class="col-sm-3 mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= contact.properties.firstname %> <%= contact.properties.lastname %></h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary"><span class="badge text-bg-light">Contact ID - <%= contact.id %></span></h6>
+                            <p class="card-text"><%= contact.properties.email %></p>
+                            <a href="/edit-contact/<%= contact.id %>" class="card-link btn btn-sm btn-secondary">Edit</a>
+                            <button type="button" class="btn btn-sm btn-danger btn-delete" data-contact-id="<%= contact.id %>" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+                                Delete
+                            </button>
                         </div>
                     </div>
-                <% }); %>
                 </div>
-            </div>
-    </div>
+            <% }); %>
+		</div>
+	</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">Danger Zone</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Are you sure to delete this contact?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" id="confirmDeleteBtn" class="btn btn-danger">Confirm</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	let contactIdToDelete = null;
+
+	// Attach click event handlers to "Delete" buttons
+	document.querySelectorAll('.btn-delete').forEach(function (btn) {
+		btn.addEventListener('click', function (event) {
+			event.preventDefault();
+			// Get the contact ID from the button's data attribute or any other way
+			contactIdToDelete = btn.getAttribute('data-contact-id');
+		});
+	});
+
+	// Attach click event handler to the "Confirm" button
+	document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
+		if (contactIdToDelete !== null) {
+			window.location.href = `/delete/${contactIdToDelete}`;
+		}
+	});
+
+	// Reset the contactIdToDelete when the modal is hidden
+	const confirmDeleteModal = document.getElementById('confirmDeleteModal');
+	confirmDeleteModal.addEventListener('hidden.bs.modal', event => {
+		contactIdToDelete = null;
+	});
+</script>
+
+
 <%- include ('./components/footer'); %>
